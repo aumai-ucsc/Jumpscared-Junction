@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
     float yRotation = 0f;
     Transform cam;
 
+    //Sliding Changes
+    public float slowSlide = 5f;
+    public float fastSlide = 15f;
+
     void Start()
     {
         cam = GetComponentInChildren<Camera>().transform;
@@ -33,5 +37,17 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
         transform.position += move * moveSpeed * Time.deltaTime;
+
+        //Sliding Trigger
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            slide(move);
+        }
+    }
+
+    void slide(Vector3 move){
+        //If standing still slowSlide
+        transform.position += move * slowSlide;
+        //If moving fastSlide
     }
 }
